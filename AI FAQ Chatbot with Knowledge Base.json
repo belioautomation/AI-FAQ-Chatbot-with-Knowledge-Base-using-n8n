@@ -1,0 +1,284 @@
+{
+  "name": "AI FAQ Chatbot with Knowledge Base",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f21b7a3c-bdb4-4663-9b31-e0188152c9e9",
+      "name": "Telegram Trigger",
+      "webhookId": "95f2fa0b-93fa-4f5b-b55e-40d5d144c8f1",
+      "credentials": {
+        "telegramApi": {
+          "id": "ekbyPJUbNQYCWXoQ",
+          "name": "AI FAQ Chatbot (Knowledge Base Bot)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA",
+          "mode": "list",
+          "cachedResultName": "FAQ Knowledge Base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "FAQ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7fec5d29-f037-495f-af90-1c877b238969",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qtNupNmEU4VCVfOQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\n\nlet knowledge = \"\";\n\nfor (const item of rows) {\n  knowledge +=\n`Question: ${item.json.Question}\nAnswer: ${item.json.Answer}\nCategory: ${item.json.Category}\nKeywords: ${item.json.Keywords}\n\n`;\n}\n\nreturn [\n  {\n    json: {\n      knowledge\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "7b6c0bf2-9081-4476-b6ee-6f6cc09697a2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "models/gemini-3-flash-preview"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{$node[\"Telegram Trigger\"].json.message.text}}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "systemMessage": "=You are an AI FAQ Assistant.  Answer ONLY using the knowledge base below.  If the answer is not found, reply exactly:  \"I'm sorry, I don't have information about that.\"  Knowledge Base:  {{ $json.knowledge }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "3ed03792-d02c-416e-aeff-6bfe0de046d3",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p6aCPHm0mKzknowX",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{$node[\"Telegram Trigger\"].json.message.chat.id}}",
+        "text": "={{ $json.content.parts[0].text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        976,
+        0
+      ],
+      "id": "d312d49e-0f98-435f-9107-df9346a95707",
+      "name": "Send a text message",
+      "webhookId": "36b22587-796c-4e1f-bec8-ee2ded72449a",
+      "credentials": {
+        "telegramApi": {
+          "id": "ekbyPJUbNQYCWXoQ",
+          "name": "AI FAQ Chatbot (Knowledge Base Bot)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA",
+          "mode": "list",
+          "cachedResultName": "FAQ Knowledge Base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1616361438,
+          "mode": "list",
+          "cachedResultName": "Chatlogs",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jVUBLvHrzRqhqCqk8KXDemVnajwguFBNH_XADP1OteA/edit#gid=1616361438"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{$now}}",
+            "User ": "={{$node[\"Telegram Trigger\"].json.message.from.first_name}}",
+            "Question": "={{$node[\"Telegram Trigger\"].json.message.text}}",
+            "AI Answer": "={{ $json.result.text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "User ",
+              "displayName": "User ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Question",
+              "displayName": "Question",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI Answer",
+              "displayName": "AI Answer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        0
+      ],
+      "id": "b487984d-2339-4f0f-9d54-91c42a506d62",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "qtNupNmEU4VCVfOQ",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "85f0ebb6-5576-4e75-a739-e946fe484dec",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8109642ab6846a9cf1618de304921f5663481ec8cdaee6a52dd360d6de75a743"
+  },
+  "id": "5jzU4rNNGn2wcfUW",
+  "tags": []
+}
