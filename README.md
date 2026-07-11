@@ -1,4 +1,3 @@
-````markdown
 # 📚 AI FAQ Chatbot with Knowledge Base — n8n Automation
 
 ![n8n](https://img.shields.io/badge/n8n-Automation-orange)
