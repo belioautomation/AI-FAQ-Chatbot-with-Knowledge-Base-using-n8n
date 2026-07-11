@@ -1,11 +1,18 @@
+````markdown
 # 📚 AI FAQ Chatbot with Knowledge Base — n8n Automation
 
-An AI-powered knowledge base chatbot built using **n8n**, **Google Gemini AI**, **Google Sheets**, and **Telegram Bot API**.
+![n8n](https://img.shields.io/badge/n8n-Automation-orange)
+![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blue)
+![Telegram](https://img.shields.io/badge/API-Telegram-green)
+![JavaScript](https://img.shields.io/badge/Code-JavaScript-yellow)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-This system allows users to ask questions through Telegram, retrieves relevant FAQ information from a structured Google Sheets knowledge base, generates accurate AI responses using Google Gemini, logs conversations, and provides instant automated replies.
+An AI-powered knowledge base chatbot workflow built using **n8n**, **Google Gemini AI**, **Google Sheets**, and **Telegram Bot API**.
+
+This system allows users to ask questions through Telegram, retrieves relevant information from a structured FAQ knowledge base, provides context to Google Gemini AI, generates accurate responses, logs conversations, and delivers instant automated answers.
 
 **Stack:**  
-n8n · Google Gemini AI · Telegram Bot API · Google Sheets · JavaScript · Knowledge Base Automation
+n8n · Google Gemini AI · Telegram Bot API · Google Sheets · JavaScript · Knowledge Base Automation · AI Agent
 
 
 ---
@@ -17,29 +24,51 @@ n8n · Google Gemini AI · Telegram Bot API · Google Sheets · JavaScript · Kn
 
 Organizations receive repetitive questions about:
 
+
 - Products
 - Services
-- Processes
 - Documentation
-- Support information
+- Internal processes
+- Technical information
+- Frequently asked questions
 
 
-Manually answering the same questions repeatedly reduces productivity and increases response time.
+Manually answering the same questions repeatedly creates several challenges:
+
+
+- Increased support workload
+- Slow response times
+- Repetitive manual tasks
+- Inconsistent answers
+- Limited availability outside working hours
+
+
+Common use cases:
+
+
+- Customer support assistants
+- Internal company assistants
+- Product information bots
+- Documentation helpers
 
 
 ---
 
 ## Solution
 
-This project creates an AI-powered FAQ assistant that:
+This project creates an AI-powered FAQ assistant that automatically:
 
 
 1. Receives user questions through Telegram
-2. Retrieves information from a knowledge base
-3. Provides context to Google Gemini AI
-4. Generates accurate answers
-5. Sends responses automatically
-6. Stores conversation history for analysis
+2. Retrieves relevant information from a knowledge base
+3. Formats FAQ data into AI-readable context
+4. Sends context and user questions to Google Gemini AI
+5. Generates accurate responses
+6. Sends answers back through Telegram
+7. Stores conversation history for analysis
+
+
+The workflow acts as an intelligent knowledge assistant capable of answering questions using stored organizational information.
 
 
 ---
@@ -49,27 +78,38 @@ This project creates an AI-powered FAQ assistant that:
 
 ## Chatbot Features
 
-✅ Telegram-based chatbot interface  
-✅ Instant AI-generated answers  
-✅ Context-aware responses  
+✅ Telegram chatbot interface  
+✅ Instant AI-generated responses  
+✅ Natural language understanding  
+✅ Context-aware answers  
 ✅ Automated FAQ handling  
 ✅ Conversation logging  
 
 
 ## Knowledge Base Features
 
-✅ Google Sheets as dynamic database  
-✅ FAQ retrieval system  
-✅ Structured knowledge formatting  
-✅ Easy knowledge updates without changing workflow  
+✅ Google Sheets knowledge database  
+✅ Dynamic FAQ management  
+✅ Structured information storage  
+✅ Easy knowledge updates  
+✅ External data integration  
 
 
-## AI Automation
+## Artificial Intelligence
 
 ✅ Google Gemini AI integration  
 ✅ AI Agent processing  
-✅ Prompt-based knowledge retrieval  
-✅ Automated response generation  
+✅ Knowledge-based response generation  
+✅ Prompt engineering workflow  
+✅ Context-aware AI answers  
+
+
+## Automation
+
+✅ n8n workflow automation  
+✅ Automated chatbot pipeline  
+✅ Real-time message processing  
+✅ API-based integrations  
 
 
 ---
@@ -89,13 +129,13 @@ A["👤 Telegram User"]
 B --> C["📚 Google Sheets Knowledge Base"]
 
 
-C --> D["⚙️ Format Knowledge Context"]
+C --> D["⚙️ JavaScript Context Formatter"]
 
 
 D --> E["🤖 Google Gemini AI Agent"]
 
 
-E --> F["📝 Generate Answer"]
+E --> F["📝 Generate AI Response"]
 
 
 F --> G["📱 Telegram Response"]
@@ -115,25 +155,29 @@ G --> H["📊 Save Chat Logs"]
 
 ### Purpose
 
-Receive questions from Telegram users.
+Receive questions from users through Telegram and start the chatbot workflow.
 
-Captured Data:
+Captured Information:
 
 | Field     | Description              |
 | --------- | ------------------------ |
 | User ID   | Telegram user identifier |
-| Chat ID   | Conversation ID          |
+| Chat ID   | Conversation identifier  |
 | Question  | User message             |
-| Timestamp | Message time             |
+| Timestamp | Message received time    |
 
 Example Input:
 
 ```json
 {
-"user":"Belio",
+"user":
+"Belio",
 
 "question":
-"What services do you provide?"
+"What services do you provide?",
+
+"chat_id":
+"123456789"
 }
 ```
 
@@ -143,7 +187,7 @@ Example Input:
 
 ### Purpose
 
-Retrieve stored FAQ information.
+Retrieve FAQ information that will be used as AI knowledge context.
 
 Knowledge Base Structure:
 
@@ -156,22 +200,24 @@ Knowledge Base Structure:
 
 Example Data:
 
-| Question                 | Answer                           |
-| ------------------------ | -------------------------------- |
-| What is n8n?             | Workflow automation platform     |
-| Do you build automation? | Yes, custom automation workflows |
+| Question            | Answer                       | Category   |
+| ------------------- | ---------------------------- | ---------- |
+| What is n8n?        | Workflow automation platform | Automation |
+| Do you create bots? | Yes, AI chatbot development  | Services   |
+
+The knowledge base can be updated without modifying the n8n workflow.
 
 ---
 
-# Node 3 — Code Node
+# Node 3 — Code Node (Knowledge Formatter)
 
 ### Purpose
 
-Format FAQ data into AI-readable context.
+Transform Google Sheets data into structured context for Gemini AI.
 
-Process:
+Processing:
 
-```
+```text
 Google Sheets Data
 
         ↓
@@ -180,20 +226,24 @@ JavaScript Formatting
 
         ↓
 
-AI Context
+AI Knowledge Context
 ```
 
-Example:
+Example Output:
 
-```
+```text
 Knowledge Base:
 
-Q:
+
+Question:
+
 What is n8n?
 
 
-A:
-n8n is a workflow automation platform.
+Answer:
+
+n8n is a workflow automation platform
+that connects APIs and applications.
 ```
 
 ---
@@ -202,28 +252,35 @@ n8n is a workflow automation platform.
 
 ### Purpose
 
-Generate answers using user questions and knowledge base context.
+Generate accurate responses using user questions combined with knowledge base information.
 
 AI Process:
 
 1. Understand user question
-2. Analyze FAQ information
-3. Generate relevant response
-4. Return final answer
+2. Analyze provided knowledge
+3. Match relevant information
+4. Generate final response
 
 Example:
 
-```
+```text
 User:
 
-Do you build n8n workflows?
+Do you build automation workflows?
 
 
 AI:
 
-Yes, we create custom n8n workflows
-for business automation.
+Yes, we create custom n8n automation
+workflows for different business needs.
 ```
+
+AI Capabilities:
+
+* Question answering
+* Context analysis
+* Knowledge retrieval
+* Natural language generation
 
 ---
 
@@ -231,18 +288,34 @@ for business automation.
 
 ### Purpose
 
-Send AI-generated answers back to users.
+Send AI-generated answers back to Telegram users.
 
-Output:
+Response Flow:
 
-```
-Telegram User
-
-        ▲
-
-        |
-
+```text
 AI Generated Response
+
+          ↓
+
+Telegram Bot API
+
+          ↓
+
+User Receives Answer
+```
+
+Example:
+
+```text
+User:
+
+What is n8n?
+
+
+AI:
+
+n8n is a workflow automation platform
+that connects applications and APIs.
 ```
 
 ---
@@ -251,7 +324,7 @@ AI Generated Response
 
 ### Purpose
 
-Store chatbot conversations.
+Store chatbot conversations for monitoring and analysis.
 
 Logged Information:
 
@@ -262,27 +335,36 @@ Logged Information:
 | Question  | User input         |
 | AI Answer | Generated response |
 
+Example:
+
+| User  | Question     | Answer                          |
+| ----- | ------------ | ------------------------------- |
+| Belio | What is n8n? | Automation platform explanation |
+
 ---
 
 # 📊 Knowledge Base Structure
 
 Example:
 
-| Category   | Question            | Answer                      |
-| ---------- | ------------------- | --------------------------- |
-| Automation | What is n8n?        | Workflow automation tool    |
-| Services   | Do you create bots? | Yes, AI chatbot development |
+| Category   | Question                   | Answer                   |
+| ---------- | -------------------------- | ------------------------ |
+| Automation | What is n8n?               | Workflow automation tool |
+| Services   | Do you create bots?        | AI chatbot development   |
+| Support    | How can I contact support? | Contact information      |
+
+The knowledge base acts as the chatbot's external information source.
 
 ---
 
 # 🔐 Credentials Required
 
-| Service       | Purpose            |
-| ------------- | ------------------ |
-| Telegram API  | Chat communication |
-| Google OAuth2 | Sheets access      |
-| Gemini API    | AI responses       |
-| n8n Instance  | Workflow execution |
+| Service           | Purpose                |
+| ----------------- | ---------------------- |
+| Telegram Bot API  | User communication     |
+| Google OAuth2     | Google Sheets access   |
+| Google Gemini API | AI response generation |
+| n8n Instance      | Workflow execution     |
 
 ---
 
@@ -294,9 +376,11 @@ Steps:
 
 1. Open Telegram
 2. Search BotFather
-3. Create new bot
+3. Create a new bot
 4. Copy API token
-5. Connect bot credential in n8n
+5. Add Telegram credentials in n8n
+
+Test incoming messages.
 
 ---
 
@@ -304,16 +388,19 @@ Steps:
 
 Create Google Sheet:
 
-```
+```text
 FAQ Knowledge Base
 ```
 
-Columns:
+Required columns:
 
-```
+```text
 Question
+
 Answer
+
 Category
+
 Keywords
 ```
 
@@ -321,11 +408,11 @@ Add FAQ information.
 
 ---
 
-## 3. Configure Google Gemini
+## 3. Configure Google Gemini AI
 
-Add Gemini API credentials:
+Add Gemini credentials:
 
-```
+```text
 GOOGLE_GEMINI_API_KEY
 ```
 
@@ -333,11 +420,33 @@ Test AI response generation.
 
 ---
 
-## 4. Import n8n Workflow
+## 4. Configure Chat Logs
+
+Create Google Sheet:
+
+```text
+Chat History
+```
+
+Columns:
+
+```text
+Timestamp
+
+User
+
+Question
+
+AI Answer
+```
+
+---
+
+## 5. Import n8n Workflow
 
 Import:
 
-```
+```text
 workflow.json
 ```
 
@@ -346,6 +455,7 @@ Configure:
 * Telegram Trigger
 * Google Sheets credential
 * Gemini AI Agent
+* Telegram Response node
 
 Activate workflow.
 
@@ -353,20 +463,21 @@ Activate workflow.
 
 # 🧪 Testing Checklist
 
-| Test Case               | Expected Result          |
-| ----------------------- | ------------------------ |
-| Send Telegram question  | Workflow starts          |
-| FAQ exists              | Correct answer generated |
-| Gemini receives context | AI response created      |
-| Telegram reply sent     | User receives answer     |
-| Chat log saved          | Conversation stored      |
+| Test Case               | Expected Result        |
+| ----------------------- | ---------------------- |
+| Send Telegram question  | Workflow starts        |
+| Knowledge base loads    | FAQ data retrieved     |
+| Context formatter runs  | AI context created     |
+| Gemini receives context | Answer generated       |
+| Telegram reply sent     | User receives response |
+| Chat logs saved         | Conversation stored    |
 
 ---
 
 # 📁 Repository Structure
 
-```
-AI-FAQ-Chatbot-with-Knowledge-Base-using-n8n/
+```text
+AI-FAQ-Chatbot-with-Knowledge-Base-n8n/
 
 │
 ├── README.md
@@ -377,10 +488,11 @@ AI-FAQ-Chatbot-with-Knowledge-Base-using-n8n/
 │   │
 │   ├── workflow.png
 │   ├── telegram-trigger.png
-│   ├── google-sheets.png
-│   ├── code-node.png
-│   ├── ai-agent.png
-│   ├── telegram-chat.png
+│   ├── google-sheets-knowledge-base.png
+│   ├── code-node-context.png
+│   ├── gemini-ai-agent.png
+│   ├── telegram-response.png
+│   ├── chat-logs.png
 │   └── execution-result.png
 │
 └── sample-data/
@@ -394,14 +506,14 @@ AI-FAQ-Chatbot-with-Knowledge-Base-using-n8n/
 
 Recommended screenshots:
 
-* Complete workflow
-* Telegram Trigger
-* Knowledge Base Sheet
-* Code Node formatting
-* Gemini AI Agent
-* Telegram conversation
-* Chat logs
-* Workflow execution
+* Complete n8n workflow
+* Telegram Trigger configuration
+* Knowledge Base Google Sheet
+* Context formatting output
+* Gemini AI Agent setup
+* Telegram conversation result
+* Chat log database
+* Workflow execution result
 
 ---
 
@@ -410,14 +522,14 @@ Recommended screenshots:
 | Feature                 | Implementation                     |
 | ----------------------- | ---------------------------------- |
 | Vector Search           | Qdrant/Pinecone semantic retrieval |
+| RAG Pipeline            | Embedding-based knowledge search   |
 | Local AI                | Ollama deployment                  |
 | Document Knowledge Base | PDF/DOCX processing                |
-| Better Search           | Embedding-based retrieval          |
 | Confidence Score        | AI answer validation               |
 | Voice Support           | Speech-to-text integration         |
 | Human Handoff           | Transfer unanswered questions      |
 | Analytics Dashboard     | Chat performance tracking          |
-| Multi-language          | Language detection                 |
+| Multi-language Support  | Language detection                 |
 
 ---
 
@@ -428,6 +540,7 @@ Recommended screenshots:
 * n8n Workflow Automation
 * Event-driven chatbot systems
 * Knowledge workflow design
+* API integration
 
 ## Artificial Intelligence
 
@@ -435,11 +548,13 @@ Recommended screenshots:
 * AI Agent Development
 * Prompt Engineering
 * Knowledge-based AI responses
+* Context-aware generation
 
 ## Programming
 
 * JavaScript
 * Data formatting
+* JSON processing
 * Workflow logic
 
 ## APIs
@@ -448,17 +563,24 @@ Recommended screenshots:
 * Google Sheets API
 * Gemini AI API
 
+## Business Automation
+
+* AI support assistants
+* Knowledge management automation
+* Customer communication systems
+
 ---
 
 # 📚 Learning Objectives
 
 This project demonstrates:
 
-* Building AI knowledge base systems
-* Creating chatbot workflows
-* Integrating LLMs with external data
-* Designing automated support assistants
-* Managing conversational data
+* Building AI-powered knowledge systems
+* Creating chatbot automation workflows
+* Integrating LLMs with external data sources
+* Designing FAQ assistants
+* Managing conversational information
+* Developing practical AI automation solutions
 
 ---
 
@@ -482,7 +604,7 @@ GitHub:
 
 [https://github.com/belioautomation](https://github.com/belioautomation)
 
-This project is part of my **30-Day n8n Automation Portfolio**, showcasing AI-powered workflow automation using n8n, Google Gemini AI, APIs, and intelligent chatbot systems.
+This project is part of my **30-Day n8n Automation Portfolio**, showcasing AI-powered workflow automation using **n8n, Google Gemini AI, APIs, and intelligent knowledge-based chatbot systems**.
 
 ---
 
@@ -491,6 +613,4 @@ This project is part of my **30-Day n8n Automation Portfolio**, showcasing AI-po
 MIT License
 
 ```
-
-This now aligns with your other projects and positions it as an **AI Knowledge Base / RAG-style chatbot automation project**, which is a stronger portfolio category than a simple FAQ bot.
 ```
