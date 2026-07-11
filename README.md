@@ -36,12 +36,10 @@ Developed as part of my **30-Day n8n Automation Portfolio**, this project demons
 Telegram Trigger
         │
         ▼
-Google Sheets
-(Get FAQ Rows)
+Google Sheets (Get FAQ Rows)
         │
         ▼
-Code Node
-(Format Knowledge Base)
+Code (Format Knowledge Base)
         │
         ▼
 Google Gemini AI Agent
@@ -50,8 +48,7 @@ Google Gemini AI Agent
 Telegram
         │
         ▼
-Google Sheets
-(Chat Logs)
+Google Sheets (Chat Logs)
 ```
 
 ---
@@ -125,19 +122,18 @@ Logs every chatbot interaction.
 # 📁 Repository Structure
 
 ```text
-AI-FAQ-Chatbot-with-Knowledge-Base/
+AI-FAQ-Chatbot-with-Knowledge-Base-using-n8n
 │
-├── README.md
 ├── workflow.json
+├── README.md
+├── screenshots/
+│   ├── workflow.png
+│   ├── execution.png
+│   ├── telegram-chat.png
+│   └── google-sheets.png
 │
-└── screenshots/
-    ├── workflow.png
-    ├── telegram-trigger.png
-    ├── google-sheets.png
-    ├── code-node.png
-    ├── ai-agent.png
-    ├── telegram-response.png
-    └── workflow-execution.png
+└── sample-data/
+    └── FAQ_Database.xlsx
 ```
 
 ---
@@ -151,7 +147,7 @@ Include the following screenshots:
 * Google Sheets
 * Code Node
 * AI Agent
-* Telegram Response
+* Telegram Chat
 * Workflow Execution
 
 ---
@@ -173,14 +169,14 @@ This project demonstrates:
 
 # 🚀 Possible Improvements
 
-* Qdrant vector database integration
-* Ollama local AI support
-* PDF and DOCX knowledge bases
-* Notion knowledge base integration
-* Multi-language support
-* Voice question support
-* Confidence scoring
-* Human handoff for unanswered questions
+* Integrate Qdrant Vector Database for semantic search
+* Use Ollama for fully local AI inference
+* Support PDF and DOCX knowledge bases
+* Add multilingual responses
+* Integrate Notion as a knowledge base
+* Add confidence scoring for AI responses
+* Support voice questions via Telegram
+* Implement human handoff for unanswered queries
 
 ---
 
